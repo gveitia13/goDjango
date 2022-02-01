@@ -29,7 +29,6 @@ def delete_hash(sender, instance, using, **kwargs):
 
 @receiver(post_save, sender=ApkAccess)
 def save_apk_access(sender, instance, created, **kwargs):
-
     habilitados = ApkAccess.objects.all().filter(cfg=instance.cfg, state=True)
     f = open(os.path.join(os.getcwd(), 'business/' + str(instance.cfg.user.name_hash) + '/apkids/acl'), "w")
     for item in habilitados:
@@ -38,7 +37,7 @@ def save_apk_access(sender, instance, created, **kwargs):
 
 
 @receiver(post_delete, sender=ApkAccess)
-def delete_apk_access(sender, instance, created, **kwargs):
+def delete_apk_access(sender, instance,using, **kwargs):
     habilitados = ApkAccess.objects.all().filter(cfg=instance.cfg, state=True)
     f = open(os.path.join(os.getcwd(), 'business/' + str(instance.cfg.user.name_hash) + '/apkids/acl'), "w")
     for item in habilitados:

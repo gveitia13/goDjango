@@ -41,5 +41,5 @@ class ConfiguracionAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Configuration, ConfiguracionAdmin)
-admin.site.register(Product)
+admin.site.register(Product, )
 admin.site.register(ConfiguracionGodjango)

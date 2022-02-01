@@ -14,5 +14,5 @@ class ApkAccessForm(ModelForm):
 class ProductForm(ModelForm):
     class Meta:
         model = Product
-        fields = '__all__'
+        # fields = '__all__'
         exclude = ['cfg', ]

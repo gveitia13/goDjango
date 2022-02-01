@@ -7,6 +7,7 @@ from crum import get_current_user, get_current_request
 from django.db import models
 from django.utils.safestring import mark_safe
 
+from goDjango import settings
 from user.models import User
 
 
@@ -29,10 +30,10 @@ class ConfiguracionGodjango(models.Model):
 
 
 class Configuration(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=User.objects.first().pk)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=User.objects.first().pk)
 
     def __str__(self):
-        return self.user.username
+        return str(self.user)
 
     def save(self, *args, **kwargs):
         super(Configuration, self).save(*args, **kwargs)
@@ -59,7 +60,7 @@ class ApkAccess(models.Model):
     qr_tag.short_description = 'Vista previa'
 
     def show_url(self):
-        return mark_safe("<a target='_blank' href='/media/%s'>%s</a>" % (str(self.qr), 'Obtener QR'))
+        return mark_safe("<a download = 'Obtener QR' href='/media/%s'>%s</a>" % (str(self.qr), 'Obtener QR'))
 
     show_url.short_description = 'Url'
 
@@ -86,7 +87,8 @@ class ApkAccess(models.Model):
             qr.make(fit=True)
             img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
             # self.save()
-            if ApkAccess.objects.last() is not None:
+            # if ApkAccess.objects.last() is not None:
+            if ApkAccess.objects.last().pk:
                 pk = ApkAccess.objects.last().pk + 1
             else:
                 pk = 1
@@ -98,11 +100,10 @@ class ApkAccess(models.Model):
     class Meta:
         verbose_name_plural = '02 - Accesos a APK'
         verbose_name = 'Acceso a APK'
-        app_label = 'GoDjango Global'
 
 
 class Product(models.Model):
-    cfg = models.ForeignKey(Configuration, on_delete=models.CASCADE)
+    cfg = models.ForeignKey(Configuration, on_delete=models.CASCADE,)
     name = models.CharField(max_length=100, verbose_name='Nombre')
     price = models.FloatField(default=0.00, verbose_name='Precio')
     cost = models.FloatField(default=0.00, verbose_name='Costo')
