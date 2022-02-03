@@ -20,12 +20,28 @@ class ProductInline(admin.StackedInline):
     model = Product
     form = ProductForm
     extra = 0
+
+
+def Exportar_Productos_a_PDF(modeladmin, request, queryset):
+    queryset = queryset
+    for q in queryset:
+        print(ApkAccess.objects.filter(cfg=q.cfg))
+
+    print('---------------------')
+    for a in ApkAccess.objects.all():
+        pass
+
+
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'price', 'cost',)
     fieldsets = [
         ('Datos del producto', {
-            'fields': ('name', 'price', 'cost')
+            'fields': ('name', 'price', 'cost', 'cfg')
         })
     ]
-    exclude = ['cfg', ]
+    search_fields = ('name',)
+    actions = [Exportar_Productos_a_PDF]
+    # exclude = ['cfg', ]
 
 
 # model admins
@@ -41,5 +57,5 @@ class ConfiguracionAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Configuration, ConfiguracionAdmin)
-admin.site.register(Product, )
+admin.site.register(Product, ProductAdmin)
 admin.site.register(ConfiguracionGodjango)

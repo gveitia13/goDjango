@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'colorfield',
     'apk',
     'user',
+    'sale',
 ]
 
 MIDDLEWARE = [

@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class UserConfig(AppConfig):
+class SaleConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'user'
-    verbose_name = 'Usuarios'
+    name = 'sale'
+    verbose_name = 'Ventas | Facturas'

@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -30,7 +29,8 @@ class Migration(migrations.Migration):
             name='Configuration',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('user', models.ForeignKey(default=3, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(default=3, on_delete=django.db.models.deletion.CASCADE,
+                                           to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'verbose_name': 'Configuración',
@@ -49,6 +49,22 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name': 'Producto',
                 'verbose_name_plural': '03 - Productos',
+            },
+        ),
+        migrations.CreateModel(
+            name='ApkAccess',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('point_of_sale', models.CharField(max_length=100, verbose_name='Punto de venta')),
+                ('operator', models.CharField(max_length=100, verbose_name='Operador')),
+                ('qr', models.CharField(blank=True, max_length=900, null=True)),
+                ('state', models.BooleanField(default=True, verbose_name='Habilitado')),
+                ('apkidhash', models.CharField(blank=True, max_length=900, null=True)),
+                ('cfg', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='apk.configuration')),
+            ],
+            options={
+                'verbose_name': 'Acceso a APK',
+                'verbose_name_plural': '02 - Accesos a APK',
             },
         ),
     ]
