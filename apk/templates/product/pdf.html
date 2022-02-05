@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ title }}</title>
+    {#    <link rel="stylesheet" href="{% static 'bootstrap-5.0.2-dist/css/bootstrap.min.css' %}">#}
+    {#    <link rel="stylesheet" href="{% static 'apk/css/pdf.css' %}">#}
+    <link rel="stylesheet" href="{% static 'bootstrap-4.6.0-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'material-icons/css/icons.min.css' %}">
+    <style>
+
+        a {
+            text-decoration: none;
+        }
+
+        @page {
+            size: "A4";
+            margin: 1.0cm 1.5cm 3.5cm 1.5cm;
+        }
+
+        body {
+            width: 100% !important;
+            height: 100%;
+            background: #fff;
+            color: black;
+            font-size: 100%;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: none;
+        }
+
+    </style>
+</head>
+<body class="">
+<div class="container-fluid">
+    {% for prod in products %}
+
+        <div class="col-4">
+            <div class="">
+                <p class="">{{ prod.name }}</p>
+                <img src="../../../media/qr/1.png" alt="" class="" style="width: 150px;height: 150px;">
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<script src="{% static 'bootstrap-4.6.0-dist/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 import os
+import random
 from datetime import datetime
 import hashlib
 
@@ -103,7 +104,7 @@ class ApkAccess(models.Model):
 
 
 class Product(models.Model):
-    cfg = models.ForeignKey(Configuration, on_delete=models.CASCADE,)
+    cfg = models.ForeignKey(Configuration, on_delete=models.CASCADE, )
     name = models.CharField(max_length=100, verbose_name='Nombre')
     price = models.FloatField(default=0.00, verbose_name='Precio')
     cost = models.FloatField(default=0.00, verbose_name='Costo')
