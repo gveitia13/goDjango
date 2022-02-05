@@ -3,8 +3,8 @@ from io import StringIO
 
 import qrcode
 from django.contrib import admin
-from django.http import HttpResponse
-from django.urls import path
+from django.http import HttpResponse, HttpResponseRedirect, FileResponse
+from django.urls import path, reverse
 from reportlab.pdfgen import canvas
 
 from apk.forms import ApkAccessForm, ProductForm
@@ -31,48 +31,7 @@ class ProductInline(admin.StackedInline):
     extra = 0
 
 
-# def Exportar_Productos_a_PDF(modeladmin, request, queryset):
-#     queryset = queryset
-#     qrs = []
-#     for q in queryset:
-#         print(ApkAccess.objects.filter(cfg=q.cfg))
-#         qr = qrcode.make()
-#         qr = qrcode.QRCode(
-#             version=1,
-#             error_correction=qrcode.constants.ERROR_CORRECT_H,
-#             box_size=50,
-#             border=4,
-#         )
-#         qr.add_data({
-#             'Usuario': str(q.cfg.user),
-#             'Nombre': q.name,
-#             'Precio': q.price,
-#             'Costo': q.cost,
-#         })
-#         qr.make(fit=True)
-#         img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-#
-#     print('---------------------')
-#
-#     # Generar PDF
-#     context = {
-#         'title': 'Invoice details',
-#         'company': {'name': 'GoDjango'},
-#         'products': queryset,
-#         # 'qr': [q.qr for q in ApkAccess.objects.all()],
-#         'qr': ApkAccess.objects.first().qr,
-#         # 'list_url': reverse_lazy('startpage:cart_list')
-#     }
-#     html = render_to_string('product/pdf.html', context)
-#     response = HttpResponse(content_type='application/pdf')
-#     response['Content-Disposition'] = 'inline; pdf.pdf'
-#
-#     font_config = FontConfiguration()
-#     HTML(string=html, base_url=request.build_absolute_uri()) \
-#         .write_pdf(response, font_config=font_config)
-#     return response
-
-
+# model admins
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'cost',)
     fieldsets = [
@@ -138,8 +97,10 @@ class ProductAdmin(admin.ModelAdmin):
             if os.path.exists(MEDIA_ROOT + f'prodTemp/{f.pk}.png'):
                 os.remove(MEDIA_ROOT + f'prodTemp/{f.pk}.png')
 
-
-# model admins
+        return FileResponse(open('products.pdf', 'rb'), content_type='application/pdf')
+        # response = HttpResponse(c,content_type='application/pdf')
+        # response['Content-Disposition'] = 'attachment; filename=products.pdf'
+        # return response
 
 
 class ConfiguracionAdmin(admin.ModelAdmin):
