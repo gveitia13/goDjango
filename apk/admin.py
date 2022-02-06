@@ -1,10 +1,7 @@
 import os
-from io import StringIO
 
 import qrcode
 from django.contrib import admin
-from django.http import HttpResponse, HttpResponseRedirect, FileResponse
-from django.urls import path, reverse
 from reportlab.pdfgen import canvas
 
 from apk.forms import ApkAccessForm, ProductForm
@@ -41,6 +38,7 @@ class ProductAdmin(admin.ModelAdmin):
     ]
     search_fields = ('name',)
     actions = ['Exportar_Productos_a_PDF', ]
+    change_list_template = 'admin/prod_change_form.html'
 
     # def get_urls(self):
     #     urls = super().get_urls()
@@ -48,6 +46,10 @@ class ProductAdmin(admin.ModelAdmin):
     #         path('admin/apk/product/prodcuts.pdf', self.Exportar_Productos_a_PDF),
     #     ]
     #     return custom_urls + urls
+    def response_change(self, request, obj):
+        if '_export_pdf' in request.POST:
+            print(request.POST)
+        print(obj)
 
     def Exportar_Productos_a_PDF(self, request, queryset):
         for q in queryset:
@@ -97,7 +99,7 @@ class ProductAdmin(admin.ModelAdmin):
             if os.path.exists(MEDIA_ROOT + f'prodTemp/{f.pk}.png'):
                 os.remove(MEDIA_ROOT + f'prodTemp/{f.pk}.png')
 
-        return FileResponse(open('products.pdf', 'rb'), content_type='application/pdf')
+        # return FileResponse(open('products.pdf', 'rb'), content_type='application/pdf')
         # response = HttpResponse(c,content_type='application/pdf')
         # response['Content-Disposition'] = 'attachment; filename=products.pdf'
         # return response

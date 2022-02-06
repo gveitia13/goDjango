@@ -35,8 +35,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Externals apps
     'widget_tweaks',
     'colorfield',
+    'rangefilter',
+    # My apps
     'apk',
     'user',
     'sale',
