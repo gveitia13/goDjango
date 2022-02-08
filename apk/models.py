@@ -40,7 +40,7 @@ class Configuration(models.Model):
         super(Configuration, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name_plural = '01 - Configuraciones'
+        verbose_name_plural = 'Configuraciones'
         verbose_name = 'Configuración'
 
 
@@ -99,7 +99,7 @@ class ApkAccess(models.Model):
         super(ApkAccess, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name_plural = '02 - Accesos a APK'
+        verbose_name_plural = 'Accesos a APK'
         verbose_name = 'Acceso a APK'
 
 
@@ -113,5 +113,5 @@ class Product(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = '03 - Productos'
+        verbose_name_plural = 'Productos'
         verbose_name = 'Producto'

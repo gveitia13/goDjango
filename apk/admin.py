@@ -2,6 +2,7 @@ import os
 
 import qrcode
 from django.contrib import admin
+from django.http import HttpResponse, HttpResponseRedirect
 from reportlab.pdfgen import canvas
 
 from apk.forms import ApkAccessForm, ProductForm
@@ -69,7 +70,8 @@ class ProductAdmin(admin.ModelAdmin):
             img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
             img.save("media/prodTemp/" + str(q.pk) + '.png')
 
-        c = canvas.Canvas('products.pdf')
+        PDF_ROOT = MEDIA_ROOT + 'pdf/'
+        c = canvas.Canvas(PDF_ROOT  + 'products.pdf')
         c.setFont('Helvetica', 12)
         x = 25
         yText = 800
@@ -98,11 +100,7 @@ class ProductAdmin(admin.ModelAdmin):
         for f in queryset:
             if os.path.exists(MEDIA_ROOT + f'prodTemp/{f.pk}.png'):
                 os.remove(MEDIA_ROOT + f'prodTemp/{f.pk}.png')
-
-        # return FileResponse(open('products.pdf', 'rb'), content_type='application/pdf')
-        # response = HttpResponse(c,content_type='application/pdf')
-        # response['Content-Disposition'] = 'attachment; filename=products.pdf'
-        # return response
+        return HttpResponseRedirect('/media/pdf/products.pdf')
 
 
 class ConfiguracionAdmin(admin.ModelAdmin):
