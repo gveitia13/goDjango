@@ -1,0 +1,14 @@
+
+{
+    "model": "sale.sale",
+    "pk": 1,
+    "fields": {
+        "name": "a go django",
+        "price": "123.00",
+        "cost": "12.00",
+        "point_of_sale": "uci",
+        "hash": "8fb2c0a3d5937d5d91c4f9ss938saddf4ec39c3s771a06a691das",
+        "date_creation": "2022-02-06T21:16:21.943Z",
+        "date_updated": "2022-02-06T21:16:21.961Z"
+    }
+}

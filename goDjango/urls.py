@@ -20,8 +20,11 @@ from apk.admin import ProductAdmin
 
 from django.conf import settings
 
+from apk import views
+
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   # path('export/products.pdf', ProductAdmin.Exportar_Productos_a_PDF, name='export-pdf'),
                   path('/', include('apk.urls')),
+                  path('', views.Index, name='index'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

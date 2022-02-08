@@ -2,8 +2,6 @@ from django.db import models
 
 
 # Create your models here.
-
-
 class Sale(models.Model):
     name = models.CharField(max_length=100, verbose_name='Nombre')
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Precio')
@@ -18,4 +16,4 @@ class Sale(models.Model):
 
     class Meta:
         verbose_name = 'Venta'
-        ordering = ['-date_creation']
+        ordering = ['date_creation']
