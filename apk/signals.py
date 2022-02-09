@@ -46,14 +46,3 @@ def delete_apk_access(sender, instance, using, **kwargs):
     for item in habilitados:
         f.write(item.apkidhash)
         f.write('\n')
-
-
-# Product
-# @receiver(post_save, sender=Product)
-# def save_product(sender, instance, created, **kwargs):
-#     if created:
-#         prod = instance
-#         user = get_current_user()
-#         cfg = Configuration.objects.get(user=user)
-#         prod.cfg_id = cfg.id
-#         prod.save()

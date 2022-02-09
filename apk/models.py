@@ -102,7 +102,7 @@ class ApkAccess(models.Model):
 
 
 class Product(models.Model):
-    cfg = models.ForeignKey(Configuration, on_delete=models.CASCADE, )
+    cfg = models.ForeignKey(Configuration, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=100, verbose_name='Nombre')
     price = models.FloatField(default=0.00, verbose_name='Precio')
     cost = models.FloatField(default=0.00, verbose_name='Costo')
@@ -114,11 +114,7 @@ class Product(models.Model):
         verbose_name_plural = 'Productos'
         verbose_name = 'Producto'
 
-    # def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-    #     user = get_current_user()
-    #     if user is not None:
-    #         if not self.pk:
-    #             self.user_creation = user
-    #         else:
-    #             self.user_updated = user
-    #     super(Product, self).save()
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        user = get_current_user()
+        self.cfg = Configuration.objects.get(user=user)
+        super(Product, self).save()

@@ -34,7 +34,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'cost',)
     fieldsets = [
         ('Datos del producto', {
-            'fields': ('name', 'price', 'cost', 'cfg')
+            'fields': ('name', 'price', 'cost',)
         })
     ]
     search_fields = ('name',)
