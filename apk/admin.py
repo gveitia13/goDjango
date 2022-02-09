@@ -39,12 +39,7 @@ class ProductAdmin(admin.ModelAdmin):
     ]
     search_fields = ('name',)
     actions = ['Exportar_Productos_a_PDF', ]
-    change_list_template = 'admin/prod_change_form.html'
-
-    def response_change(self, request, obj):
-        if '_export_pdf' in request.POST:
-            print(request.POST)
-        print(obj)
+    # change_list_template = 'admin/prod_change_form.html'
 
     def Exportar_Productos_a_PDF(self, request, queryset):
         for q in queryset:

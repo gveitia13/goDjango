@@ -1,10 +1,8 @@
-import os
-import random
-from datetime import datetime
 import hashlib
+from datetime import datetime
 
 import qrcode
-from crum import get_current_user, get_current_request
+from crum import get_current_user
 from django.db import models
 from django.utils.safestring import mark_safe
 
@@ -115,3 +113,12 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural = 'Productos'
         verbose_name = 'Producto'
+
+    # def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+    #     user = get_current_user()
+    #     if user is not None:
+    #         if not self.pk:
+    #             self.user_creation = user
+    #         else:
+    #             self.user_updated = user
+    #     super(Product, self).save()

@@ -7,5 +7,4 @@ class ApkConfig(AppConfig):
     verbose_name = 'Configuraciones'
 
     def ready(self):
-        # post_save.connect(save_hash, sender=User)
         import apk.signals

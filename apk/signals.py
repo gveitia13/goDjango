@@ -1,12 +1,14 @@
 import os
 
-from django.db.models.signals import post_save, post_delete, pre_delete
+from crum import get_current_user
+from django.db.models.signals import post_save, post_delete, pre_delete, pre_save
 from django.dispatch import receiver
 
 from .models import *
 import shutil
 
 
+# User
 @receiver(post_save, sender=User)
 def save_hash(sender, instance, created, **kwargs):
     if created:
@@ -27,6 +29,7 @@ def delete_hash(sender, instance, using, **kwargs):
         shutil.rmtree(os.path.join(os.getcwd(), 'business/' + str(user.name_hash)))
 
 
+# ApkAccess
 @receiver(post_save, sender=ApkAccess)
 def save_apk_access(sender, instance, created, **kwargs):
     habilitados = ApkAccess.objects.all().filter(cfg=instance.cfg, state=True)
@@ -37,9 +40,20 @@ def save_apk_access(sender, instance, created, **kwargs):
 
 
 @receiver(post_delete, sender=ApkAccess)
-def delete_apk_access(sender, instance,using, **kwargs):
+def delete_apk_access(sender, instance, using, **kwargs):
     habilitados = ApkAccess.objects.all().filter(cfg=instance.cfg, state=True)
     f = open(os.path.join(os.getcwd(), 'business/' + str(instance.cfg.user.name_hash) + '/apkids/acl'), "w")
     for item in habilitados:
         f.write(item.apkidhash)
         f.write('\n')
+
+
+# Product
+# @receiver(post_save, sender=Product)
+# def save_product(sender, instance, created, **kwargs):
+#     if created:
+#         prod = instance
+#         user = get_current_user()
+#         cfg = Configuration.objects.get(user=user)
+#         prod.cfg_id = cfg.id
+#         prod.save()
