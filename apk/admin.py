@@ -41,12 +41,6 @@ class ProductAdmin(admin.ModelAdmin):
     actions = ['Exportar_Productos_a_PDF', ]
     change_list_template = 'admin/prod_change_form.html'
 
-    # def get_urls(self):
-    #     urls = super().get_urls()
-    #     custom_urls = [
-    #         path('admin/apk/product/prodcuts.pdf', self.Exportar_Productos_a_PDF),
-    #     ]
-    #     return custom_urls + urls
     def response_change(self, request, obj):
         if '_export_pdf' in request.POST:
             print(request.POST)
