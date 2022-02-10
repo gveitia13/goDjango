@@ -20,20 +20,22 @@ def actualizar_ventas(request):
             with open(filename) as js:
                 with transaction.atomic():
                     asd = json.load(js)
-                    asd = asd[0] if type(asd) == list else asd
-                    for v in asd.values():
-                        if type(v) == dict:
-                            if v.get('name') is not None:
-                                try:
-                                    sale = Sale()
-                                    sale.name = v['name']
-                                    sale.price = v['price']
-                                    sale.cost = v['cost']
-                                    sale.point_of_sale = v['point_of_sale']
-                                    sale.hash = v['hash']
-                                    sale.save()
-                                except:
-                                    pass
+                    # asd = asd[0] if type(asd) == list else asd
+                    asd = asd if type(asd) == list else [asd]
+                    for dic in asd:
+                        for v in dic.values():
+                            if type(v) == dict:
+                                if v.get('name') is not None:
+                                    try:
+                                        sale = Sale()
+                                        sale.name = v['name']
+                                        sale.price = v['price']
+                                        sale.cost = v['cost']
+                                        sale.point_of_sale = v['point_of_sale']
+                                        sale.hash = v['hash']
+                                        sale.save()
+                                    except:
+                                        pass
                     js.close()
                     os.remove(filename)
     return redirect('/admin/sale/sale')
