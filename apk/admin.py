@@ -44,7 +44,7 @@ class ProductAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return Product.objects.all()
         cfgs = Configuration.objects.filter(user_id=request.user.pk)
-        prods = Product.objects.filter(cfg__user__in=cfgs)
+        prods = Product.objects.filter(cfg__in=cfgs)
         return prods
 
     def Exportar_Productos_a_PDF(self, request, queryset):
