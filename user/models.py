@@ -1,6 +1,6 @@
 from crum import get_current_request
 from django.contrib.auth.models import AbstractUser, Group
-from django.db import models
+from django.db import models, transaction
 
 
 # Create your models here.
@@ -19,10 +19,5 @@ class User(AbstractUser):
             user = User.objects.get(pk=self.pk)
             if user.password != passw:
                 self.set_password(passw)
-        # group = Group.objects.first()
-        # self.groups.add(group)
-
-        # my_group = Group.objects.get(name='normal_user')
-        # my_group.user_set.add(self)
-        # my_group.save()
+        transaction.on_commit(lambda: self.groups.add(Group.objects.first()))
         super(User, self).save()

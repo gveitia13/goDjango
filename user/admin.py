@@ -13,7 +13,7 @@ class MyUserAdmin(admin.ModelAdmin):
             'fields': ('username', 'password', 'first_name', 'last_name', 'email')
         },),
         ('Estados del usuario', {
-            'fields': ('is_staff', 'is_superuser', 'is_active','groups')
+            'fields': ('is_staff', 'is_superuser', 'is_active',)
         },),
     ]
 
