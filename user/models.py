@@ -8,3 +8,14 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        print(self)
+        passw = self.password
+        if self.pk is None:
+            self.set_password(passw)
+        else:
+            user = User.objects.get(pk=self.pk)
+            if user.password != passw:
+                self.set_password(passw)
+        super(User, self).save()
