@@ -26,11 +26,3 @@ class User(AbstractUser):
         # my_group.user_set.add(self)
         # my_group.save()
         super(User, self).save()
-
-    class Meta:
-        permissions = [
-            ('add_product', 'can add product'),
-            ('can_change_product', 'can change product'),
-            ('can_delete_product', 'can delete product'),
-            ('can_view_product', 'can view product'),
-        ]
