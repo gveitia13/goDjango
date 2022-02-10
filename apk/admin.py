@@ -10,7 +10,7 @@ from apk.models import ApkAccess, Product, Configuration, ConfiguracionGodjango
 from goDjango.settings import MEDIA_ROOT
 
 
-# inilines
+# inlines
 class ApkAccessInLine(admin.StackedInline):
     fieldsets = [
         ('Datos', {
@@ -39,7 +39,13 @@ class ProductAdmin(admin.ModelAdmin):
     ]
     search_fields = ('name',)
     actions = ['Exportar_Productos_a_PDF', ]
-    # change_list_template = 'admin/prod_change_form.html'
+
+    def get_queryset(self, request):
+        if request.user.is_superuser:
+            return Product.objects.all()
+        cfgs = Configuration.objects.filter(user_id=request.user.pk)
+        prods = Product.objects.filter(cfg__user__in=cfgs)
+        return prods
 
     def Exportar_Productos_a_PDF(self, request, queryset):
         for q in queryset:
@@ -60,7 +66,7 @@ class ProductAdmin(admin.ModelAdmin):
             img.save("media/prodTemp/" + str(q.pk) + '.png')
 
         PDF_ROOT = MEDIA_ROOT + 'pdf/'
-        c = canvas.Canvas(PDF_ROOT  + 'products.pdf')
+        c = canvas.Canvas(PDF_ROOT + 'products.pdf')
         c.setFont('Helvetica', 12)
         x = 25
         yText = 800

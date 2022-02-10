@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 
 from user.models import User
 
@@ -13,10 +13,11 @@ class MyUserAdmin(admin.ModelAdmin):
             'fields': ('username', 'password', 'first_name', 'last_name', 'email')
         },),
         ('Estados del usuario', {
-            'fields': ('is_staff', 'is_superuser', 'is_active')
+            'fields': ('is_staff', 'is_superuser', 'is_active','groups')
         },),
     ]
 
 
 admin.site.register(User, MyUserAdmin)
-admin.site.unregister(Group)
+# admin.site.register(Permission)
+# admin.site.unregister(Group)
