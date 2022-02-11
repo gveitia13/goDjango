@@ -9,6 +9,7 @@ class ApkAccessForm(ModelForm):
             'operator',
             'point_of_sale',
         ]
+        exclude =['qr_tag','show_url']
 
 
 class ProductForm(ModelForm):

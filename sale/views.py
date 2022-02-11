@@ -33,6 +33,8 @@ def actualizar_ventas(request):
                                         sale.cost = v['cost']
                                         sale.point_of_sale = v['point_of_sale']
                                         sale.hash = v['hash']
+                                        if v.get('date_creation') is not None:
+                                            sale.date_creation = v['date_creation']
                                         sale.save()
                                     except:
                                         pass

@@ -43,7 +43,7 @@ class Configuration(models.Model):
 
 
 class ApkAccess(models.Model):
-    cfg = models.ForeignKey(Configuration, on_delete=models.CASCADE)
+    cfg = models.ForeignKey(Configuration, on_delete=models.CASCADE,null=True,blank=True)
     point_of_sale = models.CharField(max_length=100, verbose_name='Punto de venta')
     operator = models.CharField(max_length=100, verbose_name='Operador')
     qr = models.CharField(max_length=900, blank=True, null=True)
@@ -64,6 +64,10 @@ class ApkAccess(models.Model):
     show_url.short_description = 'Url'
 
     def save(self, *args, **kwargs):
+        if self.cfg is None:
+            user = get_current_user()
+            conf = Configuration.objects.get(user=user)
+            self.cfg = conf
         if not self.qr:
             user = self.cfg.user
             qr = qrcode.make()
@@ -94,6 +98,7 @@ class ApkAccess(models.Model):
             self.qr = "/qr/" + str(pk) + '.png'
             self.save()
             img.save("media/qr/" + str(pk) + '.png')
+
         super(ApkAccess, self).save(*args, **kwargs)
 
     class Meta:

@@ -98,6 +98,24 @@ class ProductAdmin(admin.ModelAdmin):
         return HttpResponseRedirect('/media/pdf/products.pdf')
 
 
+class ApkAccessAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('Datos', {
+            'fields': ('operator', 'point_of_sale', ('qr_tag', 'show_url'), 'state')
+        }),
+    ]
+    readonly_fields = ('qr_tag', 'show_url')
+
+    # form = ApkAccessForm
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        cfgs = Configuration.objects.filter(user_id=request.user.pk)
+        return qs.filter(cfg__in=cfgs)
+
+
 class ConfiguracionAdmin(admin.ModelAdmin):
     inlines = [ApkAccessInLine, ]
 
@@ -109,6 +127,7 @@ class ConfiguracionAdmin(admin.ModelAdmin):
 
 
 # Register your models here.
+admin.site.register(ApkAccess, ApkAccessAdmin)
 admin.site.register(Configuration, ConfiguracionAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ConfiguracionGodjango)
