@@ -44,35 +44,35 @@ def actualizar_ventas(request):
 
 
 def exportar_ventas(request):
-    if request.method == 'POST':
-        if '_excel' in request.POST:
-            ventas = Sale.objects.filter(date_creation__range=[request.POST['inicial'], request.POST['final']])
-            export = []
+    if '_excel' in request.POST:
+        ventas = Sale.objects.filter(date_creation__range=[request.POST['inicial'], request.POST['final']],
+                                     user=request.user)
+        export = []
+        export.append([
+            'Nombre',
+            'Punto de venta',
+            'Precio',
+            'Costo',
+            'Fecha de creación',
+        ])
+        for v in ventas:
             export.append([
-                'Nombre',
-                'Punto de venta',
-                'Precio',
-                'Costo',
-                'Fecha de creación',
+                v.name,
+                v.point_of_sale,
+                v.price,
+                v.cost,
+                v.date_creation.strftime('%Y-%m-%d'),
             ])
-            for v in ventas:
-                export.append([
-                    v.name,
-                    v.point_of_sale,
-                    v.price,
-                    v.cost,
-                    v.date_creation.strftime('%Y-%m-%d'),
-                ])
-            sheet = excel.pe.Sheet(export)
-            return excel.make_response(sheet, 'xlsx',
-                                       file_name=f'Ventas ({request.POST["inicial"]} - {request.POST["final"]}.xlsx')
-        if '_filter' in request.POST:
-            initial = datetime.strptime(request.POST['inicial'], '%Y-%m-%d').date()
-            end = datetime.strptime(request.POST['final'], '%Y-%m-%d').date()
-            return redirect(
-                f'/admin/sale/sale/?date_creation__range__gte={initial.day}%2F{initial.month}%2F{initial.year}'
-                f'&date_creation__range__lte={end.day}%2F{end.month}%2F{end.year}')
-
+        sheet = excel.pe.Sheet(export)
+        return excel.make_response(sheet, 'xlsx',
+                                   file_name=f'Ventas ({request.POST["inicial"]} - {request.POST["final"]}.xlsx')
+    if '_filter' in request.POST or '_filter' in request.GET:
+        print(request.method)
+        initial = datetime.strptime(request.POST['inicial'], '%Y-%m-%d').date()
+        end = datetime.strptime(request.POST['final'], '%Y-%m-%d').date()
+        return redirect(
+            f'/admin/sale/sale/?date_creation__range__gte={initial.day}%2F{initial.month}%2F{initial.year}'
+            f'&date_creation__range__lte={end.day}%2F{end.month}%2F{end.year}')
     return redirect('/admin/sale/sale')
 
 

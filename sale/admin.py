@@ -1,4 +1,6 @@
+import rangefilter
 from django.contrib import admin
+from rangefilter.filters import DateRangeFilter
 
 from sale.models import Sale
 
@@ -21,6 +23,7 @@ class SaleAdmin(admin.ModelAdmin):
         },),
     ]
     exclude = ['hash', ]
+    # list_filter = (('date_creation', DateRangeFilter),)
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
