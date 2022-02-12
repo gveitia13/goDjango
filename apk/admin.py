@@ -105,6 +105,7 @@ class ApkAccessAdmin(admin.ModelAdmin):
         }),
     ]
     readonly_fields = ('qr_tag', 'show_url')
+    list_display = ('point_of_sale', 'operator', 'state',)
 
     # form = ApkAccessForm
 

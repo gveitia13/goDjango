@@ -23,7 +23,7 @@ class ConfiguracionGodjango(models.Model):
         return 'Configuraciones de ámbito global'
 
     class Meta:
-        verbose_name_plural = '*  Configuraciones de ámbito global'
+        verbose_name_plural = '*Configuraciones de ámbito global*'
         verbose_name = 'Configuración de ámbito global'
         # app_label = 'godjango'
 
@@ -43,7 +43,7 @@ class Configuration(models.Model):
 
 
 class ApkAccess(models.Model):
-    cfg = models.ForeignKey(Configuration, on_delete=models.CASCADE,null=True,blank=True)
+    cfg = models.ForeignKey(Configuration, on_delete=models.CASCADE, null=True, blank=True)
     point_of_sale = models.CharField(max_length=100, verbose_name='Punto de venta')
     operator = models.CharField(max_length=100, verbose_name='Operador')
     qr = models.CharField(max_length=900, blank=True, null=True)

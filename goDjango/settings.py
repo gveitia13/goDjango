@@ -46,6 +46,26 @@ INSTALLED_APPS = [
     'sale',
 ]
 
+JAZZMIN_SETTINGS = {
+    "site_brand": "EnCAJA Lite",
+    "welcome_sign": "Bienvenido:",
+    # 'site_logo': 'EnCAJA Lite',
+    'site_header': 'EnCAJA Lite',
+
+    "icons": {
+        "user.user": "fas fa-user",
+        "user.user_groups": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "sale.sale": "fas fa-shopping-cart",
+        'apk.product': 'fab fa-product-hunt',
+        'apk.configuration': 'fas fa-cog',
+        'apk.configuraciongodjango': 'fas fa-cogs',
+        'apk.apkaccess': 'fas fa-qrcode',
+    },
+    # "custom_css": None,
+    "custom_js": 'hola.js',
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
