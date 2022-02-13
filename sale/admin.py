@@ -1,6 +1,6 @@
 import rangefilter
 from django.contrib import admin
-from rangefilter.filters import DateRangeFilter
+from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
 
 from sale.models import Sale
 

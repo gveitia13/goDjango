@@ -14,7 +14,7 @@ from goDjango.settings import MEDIA_ROOT
 class ApkAccessInLine(admin.StackedInline):
     fieldsets = [
         ('Datos', {
-            'fields': (('operator', 'point_of_sale'), ('qr_tag', 'show_url'), 'state')
+            'fields': ('operator', 'point_of_sale', ('qr_tag', 'show_url'), 'state')
         }),
     ]
     readonly_fields = ('qr_tag', 'show_url')
