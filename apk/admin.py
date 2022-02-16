@@ -1,4 +1,5 @@
 import os
+import textwrap
 
 import qrcode
 from django.contrib import admin
@@ -75,7 +76,9 @@ class ProductAdmin(admin.ModelAdmin):
         cont = 0
         cant = 0
         for r in queryset:
-            c.drawString(xText, yText, (r.name[:14] + '..') if len(r.name) > 14 else r.name)
+            # c.drawString(xText, yText, (r.name[:14] + '..') if len(r.name) > 14 else r.name)
+            draw_wrapped_line(c, r.name, 14, xText, yText, 12)
+            # c.drawString(xText, yText, r.name)
             c.drawImage(os.path.join(MEDIA_ROOT + f'prodTemp/{r.pk}.png'), xImg, yImg, 100, 100)
             xImg += 110
             xText += 110
@@ -100,6 +103,26 @@ class ProductAdmin(admin.ModelAdmin):
             if os.path.exists(MEDIA_ROOT + f'prodTemp/{f.pk}.png'):
                 os.remove(MEDIA_ROOT + f'prodTemp/{f.pk}.png')
         return HttpResponseRedirect('/media/pdf/products.pdf')
+
+
+def draw_wrapped_line(canvas, text, length, x_pos, y_pos, y_offset):
+    """
+    :param canvas: reportlab canvas
+    :param text: the raw text to wrap
+    :param length: the max number of characters per line
+    :param x_pos: starting x position
+    :param y_pos: starting y position
+    :param y_offset: the amount of space to leave between wrapped lines
+    """
+    if len(text) > length:
+        wraps = textwrap.wrap(text, length)
+        for x in range(len(wraps)):
+            canvas.drawString(x_pos, y_pos, wraps[x])
+            y_pos -= y_offset
+        y_pos += y_offset  # add back offset after last wrapped line
+    else:
+        canvas.drawString(x_pos, y_pos, text)
+    return y_pos
 
 
 class ApkAccessAdmin(admin.ModelAdmin):
