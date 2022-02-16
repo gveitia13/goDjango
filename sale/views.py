@@ -7,6 +7,8 @@ from django.db import transaction
 from django.shortcuts import render, redirect
 import json
 
+from django.urls import reverse
+
 from goDjango.settings import BASE_DIR
 from sale.models import Sale
 
@@ -43,6 +45,12 @@ def actualizar_ventas(request):
     return redirect('/admin/sale/sale')
 
 
+def abdel(request, fecha_inicial, fecha_final):
+    print(request.method)
+    initial = fecha_inicial
+    end = fecha_final
+
+
 def exportar_ventas(request):
     if '_excel' in request.POST:
         ventas = Sale.objects.filter(date_creation__range=[request.POST['inicial'], request.POST['final']],
@@ -66,13 +74,17 @@ def exportar_ventas(request):
         sheet = excel.pe.Sheet(export)
         return excel.make_response(sheet, 'xlsx',
                                    file_name=f'Ventas ({request.POST["inicial"]} - {request.POST["final"]}.xlsx')
-    if '_filter' in request.POST or '_filter' in request.GET:
-        print(request.method)
-        initial = datetime.strptime(request.POST['inicial'], '%Y-%m-%d').date()
-        end = datetime.strptime(request.POST['final'], '%Y-%m-%d').date()
-        return redirect(
-            f'/admin/sale/sale/?date_creation__range__gte={initial.day}%2F{initial.month}%2F{initial.year}'
-            f'&date_creation__range__lte={end.day}%2F{end.month}%2F{end.year}')
+
+    # Filtro de fecha
+    if '_filter' in request.POST:
+        inicial = request.POST['inicial']
+        final = request.POST['final']
+        ventas = Sale.objects.filter(date_creation__range=[inicial, final])
+        return render(request, 'admin/lista.html', {
+            'ventas': ventas,
+            'inicial': inicial,
+            'final': final,
+        })
     return redirect('/admin/sale/sale')
 
 
