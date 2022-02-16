@@ -75,7 +75,7 @@ class ProductAdmin(admin.ModelAdmin):
         cont = 0
         cant = 0
         for r in queryset:
-            c.drawString(xText, yText, r.name)
+            c.drawString(xText, yText, (r.name[:14] + '..') if len(r.name) > 14 else r.name)
             c.drawImage(os.path.join(MEDIA_ROOT + f'prodTemp/{r.pk}.png'), xImg, yImg, 100, 100)
             xImg += 110
             xText += 110
