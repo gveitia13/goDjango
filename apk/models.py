@@ -66,7 +66,7 @@ class ApkAccess(models.Model):
     def save(self, *args, **kwargs):
         if self.cfg is None:
             user = get_current_user()
-            conf = Configuration.objects.get(user=user)
+            conf = Configuration.objects.filter(user=user)[0]
             self.cfg = conf
         if not self.qr:
             user = self.cfg.user
@@ -77,7 +77,7 @@ class ApkAccess(models.Model):
                 box_size=50,
                 border=4,
             )
-            apkidhash = hash_string(str(self.operator + self.point_of_sale + str(datetime.utcnow))) + '.sd'
+            apkidhash = hash_string(str(self.operator + self.point_of_sale + str(datetime.utcnow)))
             qr.add_data({
                 'dns': str(ConfiguracionGodjango.objects.all()[0].dns),
                 'id': str(self.cfg.user.name_hash),
@@ -121,5 +121,5 @@ class Product(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         user = get_current_user()
-        self.cfg = Configuration.objects.get(user=user)
+        self.cfg = Configuration.objects.filter(user=user)[0]
         super(Product, self).save()

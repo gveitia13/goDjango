@@ -68,18 +68,21 @@ class ProductAdmin(admin.ModelAdmin):
         PDF_ROOT = MEDIA_ROOT + 'pdf/'
         c = canvas.Canvas(PDF_ROOT + 'products.pdf')
         c.setFont('Helvetica', 12)
-        x = 25
+        xImg = 25
+        xText = 35
         yText = 800
         yImg = 675
         cont = 0
         cant = 0
         for r in queryset:
-            c.drawString(x, yText, r.name)
-            c.drawImage(os.path.join(MEDIA_ROOT + f'prodTemp/{r.pk}.png'), x, yImg, 100, 100)
-            x += 110
+            c.drawString(xText, yText, r.name)
+            c.drawImage(os.path.join(MEDIA_ROOT + f'prodTemp/{r.pk}.png'), xImg, yImg, 100, 100)
+            xImg += 110
+            xText += 110
             cont += 1
             if cont == 5:
-                x = 25
+                xImg = 25
+                xText = 35
                 yText -= 150
                 yImg -= 150
                 cont = 0
@@ -87,7 +90,8 @@ class ProductAdmin(admin.ModelAdmin):
             if cant == 25:
                 c.showPage()
                 cant = 0
-                x = 25
+                xImg = 25
+                xText = 35
                 yText = 800
                 yImg = 675
 

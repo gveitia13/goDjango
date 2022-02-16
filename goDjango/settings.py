@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 JAZZMIN_SETTINGS = {
     "site_brand": "EnCAJA Lite",
     "welcome_sign": "Bienvenido:",
-    # 'site_logo': 'EnCAJA Lite',
+    # 'site_logo': 'img/icon.png',
     'site_header': 'EnCAJA Lite',
 
     "icons": {
@@ -64,6 +64,10 @@ JAZZMIN_SETTINGS = {
     },
     # "custom_css": None,
     "custom_js": 'hola.js',
+    "topmenu_links": [
+        # Url that gets reversed (Permissions can be added)
+        {"name": "Inicio", "url": "admin:index"},
+    ],
 }
 
 MIDDLEWARE = [
