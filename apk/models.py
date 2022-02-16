@@ -54,7 +54,7 @@ class ApkAccess(models.Model):
         return self.point_of_sale
 
     def qr_tag(self):
-        return mark_safe('<img src="/media/%s" width="300" height="300" />' % (str(self.qr)))
+        return mark_safe('<img src="/media/%s" width="200" height="200" />' % (str(self.qr)))
 
     qr_tag.short_description = 'Vista previa'
 
