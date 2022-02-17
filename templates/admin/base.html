@@ -97,15 +97,7 @@
                                         {% for model in app.models %}
                                             <li class="nav-item">
                                                 <a href="
-
-
-
-
-
-
-
-
-                                                        {% if model.url %}{{ model.url }}{% else %}javascript:void(0){% endif %}"
+{% if model.url %}{{ model.url }}{% else %}javascript:void(0){% endif %}"
                                                    class="nav-link">
                                                     <i class="nav-icon {{ model.icon }}"></i>
                                                     <p>{{ model.name }}</p>
@@ -120,5 +112,20 @@
                 </nav>
             </div>
         </aside>
+    {% endif %}
+{% endblock %}
+
+
+{% block footer %}
+    {% if not is_popup %}
+        <footer class="main-footer {{ jazzmin_ui.footer_classes }}">
+            {% autoescape off %}
+                <strong>{% trans 'Copyright' %} &copy; {% now 'Y' %}. By GoDjango </strong>
+                {% trans 'All rights reserved.' %}
+            {% endautoescape %}
+        </footer>
+        {% if jazzmin_settings.show_ui_builder %}
+            {% include 'jazzmin/includes/ui_builder_panel.html' %}
+        {% endif %}
     {% endif %}
 {% endblock %}

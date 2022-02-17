@@ -79,7 +79,7 @@ def exportar_ventas(request):
     if '_filter' in request.POST:
         inicial = request.POST['inicial']
         final = request.POST['final']
-        ventas = Sale.objects.filter(date_creation__range=[inicial, final])
+        ventas = Sale.objects.filter(date_creation__range=[inicial, final], user=request.user)
         return render(request, 'admin/lista.html', {
             'ventas': ventas,
             'inicial': inicial,

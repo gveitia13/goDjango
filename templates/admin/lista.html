@@ -1,3 +1,9 @@
+{% load static %}
+{% load i18n static jazzmin admin_urls %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+{% get_jazzmin_settings request as jazzmin_settings %}
+{% get_jazzmin_ui_tweaks as jazzmin_ui %}
 <!DOCTYPE html>
 <html lang="es-us">
 <head>
@@ -24,7 +30,7 @@
 
     <!-- favicons -->
     <link rel="shortcut icon" href="/static/vendor/adminlte/img/AdminLTELogo.png" type="image/png">
-    <link rel="icon" href="/static/vendor/adminlte/img/AdminLTELogo.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="{% static 'img/icon.png' %}" sizes="32x32" type="image/png">
 
 
     <!-- Google Font: Source Sans Pro -->
@@ -102,7 +108,7 @@
 
     <aside class="main-sidebar elevation-4 sidebar-dark-primary" id="jazzy-sidebar">
         <a href="/admin/" class="brand-link " id="jazzy-logo">
-            <img src="/static/vendor/adminlte/img/AdminLTELogo.png" alt="EnCAJA Lite Logo"
+            <img src="{% static 'img/icon.png' %}" alt="EnCAJA Lite Logo"
                  class="img-circle brand-image elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">EnCAJA Lite</span>
         </a>
@@ -116,7 +122,7 @@
                 </div>
                 <div class="info">
 
-                    <a href="/admin/user/user/4/change/" class="d-block">godjango</a>
+                    <a href="#" class="d-block">{{ user.username }}</a>
 
                 </div>
             </div>
@@ -131,82 +137,30 @@
                             <p>Panel de control</p>
                         </a>
                     </li>
-
-
-                    <li class="nav-header">Autenticación y autorización</li>
-
-                    <li class="nav-item">
-
-                        <a href="/admin/auth/group/" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>Grupos</p>
-                        </a>
-
-                    </li>
-
-
                     <li class="nav-header">Configuraciones | Productos</li>
 
                     <li class="nav-item">
-
-                        <a href="/admin/apk/configuraciongodjango/" class="nav-link">
-                            <i class="nav-icon fas fa-cogs"></i>
-                            <p>*Configuraciones de ámbito global*</p>
-                        </a>
-
-                    </li>
-
-                    <li class="nav-item">
-
                         <a href="/admin/apk/apkaccess/" class="nav-link">
                             <i class="nav-icon fas fa-qrcode"></i>
                             <p>Accesos a APK</p>
                         </a>
-
                     </li>
-
                     <li class="nav-item">
-
-                        <a href="/admin/apk/configuration/" class="nav-link">
-                            <i class="nav-icon fas fa-cog"></i>
-                            <p>Configuraciones</p>
-                        </a>
-
-                    </li>
-
-                    <li class="nav-item">
-
                         <a href="/admin/apk/product/" class="nav-link">
                             <i class="nav-icon fab fa-product-hunt"></i>
                             <p>Productos</p>
                         </a>
-
                     </li>
-
-
-                    <li class="nav-header">Usuarios</li>
-
-                    <li class="nav-item">
-
-                        <a href="/admin/user/user/" class="nav-link">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>Usuarios</p>
-                        </a>
-
-                    </li>
-
-
                     <li class="nav-header">Ventas | Facturas</li>
 
                     <li class="nav-item">
 
-                        <a href="/admin/sale/sale/" class="nav-link">
+                        <a href="/admin/sale/sale/" class="nav-link active">
                             <i class="nav-icon fas fa-shopping-cart"></i>
                             <p>Ventas</p>
                         </a>
 
                     </li>
-
 
                 </ul>
             </nav>
@@ -451,15 +405,12 @@
     </div>
 
 
-    <footer class="main-footer ">
-        <div class="float-right d-none d-sm-inline">
-            <b>Versión de Jazzmin</b> 2.4.9
-        </div>
-
-        <strong>Copyright &copy; 2022 .</strong> Todos los derechos reservados.
-
+    <footer class="main-footer {{ jazzmin_ui.footer_classes }}">
+        {% autoescape off %}
+            <strong>{% trans 'Copyright' %} &copy; {% now 'Y' %}. By GoDjango </strong>
+            {% trans 'All rights reserved.' %}
+        {% endautoescape %}
     </footer>
-
 
 </div>
 

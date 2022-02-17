@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 JAZZMIN_SETTINGS = {
     "site_brand": "EnCAJA Lite",
     "welcome_sign": "Bienvenido:",
-    # 'site_logo': 'img/icon.png',
+    'site_icon': 'img/icon.png',
     'site_header': 'EnCAJA Lite',
 
     "icons": {

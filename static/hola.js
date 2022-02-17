@@ -1,10 +1,10 @@
 console.log('hola')
-try {
-  document.querySelector('footer.main-footer ').innerHTML =
-    '<strong>Copyright © 2022. By GoDjango</strong> Todos los derechos reservados.'
-} catch (e) {
-  console.log(e)
-}
+// try {
+//   document.querySelector('footer.main-footer ').innerHTML =
+//     '<strong>Copyright © 2022. By GoDjango</strong> Todos los derechos reservados.'
+// } catch (e) {
+//   console.log(e)
+// }
 try {
   document.querySelector('div.login-logo').innerHTML =
     '<h2><img src="/static/img/icon.png" style="width: 80px;height: auto;" alt="EnCAJA Lite">EnCAJA Lite</h2>'
