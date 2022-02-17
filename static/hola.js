@@ -17,3 +17,10 @@ try {
 // } catch (e) {
 //   console.log(e)
 // }
+if (window.location.pathname.includes('sale')) {
+  try {
+    document.querySelector('h4.card-title').innerText = 'Listado de ventas'
+  } catch (e) {
+    console.log(e)
+  }
+}

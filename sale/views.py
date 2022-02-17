@@ -73,7 +73,7 @@ def exportar_ventas(request):
             ])
         sheet = excel.pe.Sheet(export)
         return excel.make_response(sheet, 'xlsx',
-                                   file_name=f'Ventas ({request.POST["inicial"]} - {request.POST["final"]}.xlsx')
+                                   file_name=f'Ventas ({request.POST["inicial"]} - {request.POST["final"]}).xlsx')
 
     # Filtro de fecha
     if '_filter' in request.POST:
