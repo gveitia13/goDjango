@@ -11,9 +11,9 @@ try {
 } catch (e) {
   console.log(e)
 }
-try {
-  document.querySelector('#jazzy-logo img').src = '/static/img/icon.png'
-  document.querySelector('#jazzy-logo img').style = 'opacity:1'
-} catch (e) {
-  console.log(e)
-}
+// try {
+//   document.querySelector('#jazzy-logo img').src = '/static/img/icon.png'
+//   document.querySelector('#jazzy-logo img').style = 'opacity:1'
+// } catch (e) {
+//   console.log(e)
+// }
