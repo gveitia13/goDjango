@@ -69,15 +69,14 @@
                     {% elif app.name != 'Ventas | Facturas' %}
                         <div class="card card-primary card-outline">
                             <div class="card-header">
-                                <h5 class="m-0">{{ app.name }}</h5>
+                                <h5 class="m-0">{% if app.name == 'Configuraciones | Productos' %}Configuraciones
+                                    {% else %} {{ app.name }}{% endif %}</h5>
                             </div>
                             <div class="card-body">
                                 <table class="table table-sm">
                                     <tbody>
                                     {% for model in app.models %}
                                         {% if model.name != 'Productos' and model.name != 'Accesos a APK' %}
-
-
                                         <tr>
                                             <td>
                                                 {% if model.url %}

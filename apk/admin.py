@@ -145,7 +145,7 @@ class ApkAccessAdmin(admin.ModelAdmin):
 
 
 class ConfiguracionAdmin(admin.ModelAdmin):
-    inlines = [ApkAccessInLine, ]
+    # inlines = [ApkAccessInLine, ]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)

@@ -50,13 +50,14 @@
                         {% if jazzmin_settings.navigation_expanded %}
                             {% for app in side_menu_list %}
                                 {% if user.is_superuser and app.name == 'Configuraciones | Productos' or app.name == 'Usuarios' or app.name == 'Autenticación y autorización' %}
-                                    <li class="nav-header">{{ app.name }}</li>
+                                    <li class="nav-header">{% if app.name == 'Configuraciones | Productos' %}Configuraciones
+                                    {% else %} {{ app.name }}{% endif %}</li>
                                 {% elif not user.is_superuser %}
                                     <li class="nav-header">{{ app.name }}</li>
                                 {% endif %}
 
                                 {% for model in app.models %}
-                                    {% if user.is_superuser and model.name == '*Configuraciones de ámbito global*' or model.name == 'Usuarios' or model.name == 'Grupos' %}
+                                    {% if user.is_superuser and model.name == '*Configuraciones de ámbito global*' or model.name == 'Usuarios' or model.name == 'Grupos' or model.name == 'Configuraciones' %}
                                         <li class="nav-item">
                                             {% if model.url %}
                                                 <a href="{{ model.url }}" class="nav-link">
