@@ -1,8 +1,9 @@
-import rangefilter
-from django.contrib import admin
-from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
+from django.conf.locale.es import formats as es_formats
 
+from django.contrib import admin
 from sale.models import Sale
+
+es_formats.DATETIME_FORMAT = "d - M - Y"
 
 
 class SaleInline(admin.StackedInline):
@@ -23,6 +24,7 @@ class SaleAdmin(admin.ModelAdmin):
         },),
     ]
     exclude = ['hash', ]
+
     # list_filter = (('date_creation', DateRangeFilter),)
 
     def get_queryset(self, request):
