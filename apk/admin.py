@@ -66,9 +66,8 @@ class ProductAdmin(admin.ModelAdmin):
             img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
             img.save("media/prodTemp/" + str(q.pk) + '.png')
 
-        # PDF_ROOT = MEDIA_ROOT + 'pdf/'
-        hash = request.user.name_hash
-        rutaPDF = PDF_ROOT + hash + '/'
+        username = request.user.username
+        rutaPDF = MEDIA_ROOT + 'pdf/' + username + '/'
         c = canvas.Canvas(rutaPDF + 'products.pdf')
         c.setFont('Helvetica', 12)
         xImg = 25
@@ -105,7 +104,7 @@ class ProductAdmin(admin.ModelAdmin):
             if os.path.exists(MEDIA_ROOT + f'prodTemp/{f.pk}.png'):
                 os.remove(MEDIA_ROOT + f'prodTemp/{f.pk}.png')
         # return HttpResponseRedirect('/media/pdf/products.pdf')
-        return HttpResponseRedirect(f'/business/{hash}/products.pdf')
+        return HttpResponseRedirect(f'/media/pdf/{username}/products.pdf')
 
 
 def draw_wrapped_line(canvas, text, length, x_pos, y_pos, y_offset):

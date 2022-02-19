@@ -21,6 +21,7 @@ def save_hash(sender, instance, created, **kwargs):
         os.mkdir(os.path.join(os.getcwd(), 'business/' + str(name_hash)))
         os.mkdir(os.path.join(os.getcwd(), 'business/' + str(name_hash) + '/apkids/'))
         os.mkdir(os.path.join(os.getcwd(), 'business/' + str(name_hash) + '/import/'))
+        os.mkdir(os.path.join(os.getcwd(), 'media/pdf/' + str(user.username)))
         f = open(os.path.join(os.getcwd(), 'business/' + str(name_hash) + '/apkids/acl'), "w")
 
 
@@ -29,6 +30,7 @@ def delete_hash(sender, instance, using, **kwargs):
     try:
         user = instance
         shutil.rmtree(os.path.join(os.getcwd(), 'business/' + str(user.name_hash)))
+        shutil.rmtree(os.path.join(os.getcwd(), 'media/pdf/' + user.username))
     except:
         pass
 
