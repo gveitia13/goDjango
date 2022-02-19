@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 from apk.admin import ProductAdmin
 
@@ -23,8 +24,13 @@ from django.conf import settings
 from apk import views
 
 urlpatterns = [
-                  path('sale/', include('sale.urls')),
-                  path('admin/', admin.site.urls),
-                  path('/', include('apk.urls')),
-                  path('', views.Index, name='index'),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('sale/', include('sale.urls')),
+    path('admin/', admin.site.urls),
+    path('/', include('apk.urls')),
+    path('', views.Index, name='index'),
+]
+
+if settings.DEBUG:
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.PDF_URL, document_root=settings.PDF_ROOT)

@@ -8,7 +8,7 @@ from reportlab.pdfgen import canvas
 
 from apk.forms import ApkAccessForm, ProductForm
 from apk.models import ApkAccess, Product, Configuration, ConfiguracionGodjango
-from goDjango.settings import MEDIA_ROOT
+from goDjango.settings import MEDIA_ROOT, BASE_DIR, PDF_ROOT
 
 
 # inlines
@@ -66,8 +66,10 @@ class ProductAdmin(admin.ModelAdmin):
             img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
             img.save("media/prodTemp/" + str(q.pk) + '.png')
 
-        PDF_ROOT = MEDIA_ROOT + 'pdf/'
-        c = canvas.Canvas(PDF_ROOT + 'products.pdf')
+        # PDF_ROOT = MEDIA_ROOT + 'pdf/'
+        hash = request.user.name_hash
+        rutaPDF = PDF_ROOT + hash + '/'
+        c = canvas.Canvas(rutaPDF + 'products.pdf')
         c.setFont('Helvetica', 12)
         xImg = 25
         xText = 35
@@ -102,7 +104,8 @@ class ProductAdmin(admin.ModelAdmin):
         for f in queryset:
             if os.path.exists(MEDIA_ROOT + f'prodTemp/{f.pk}.png'):
                 os.remove(MEDIA_ROOT + f'prodTemp/{f.pk}.png')
-        return HttpResponseRedirect('/media/pdf/products.pdf')
+        # return HttpResponseRedirect('/media/pdf/products.pdf')
+        return HttpResponseRedirect(f'/business/{hash}/products.pdf')
 
 
 def draw_wrapped_line(canvas, text, length, x_pos, y_pos, y_offset):

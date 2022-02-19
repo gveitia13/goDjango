@@ -153,11 +153,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'business'),
 ]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+PDF_URL = '/business/'
+PDF_ROOT = os.path.join(BASE_DIR, 'business/')
 
 # CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 # CKEDITOR_UPLOAD_PATH = "uploads/"
