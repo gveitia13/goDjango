@@ -1,12 +1,10 @@
 import os
+import shutil
 
-from crum import get_current_user
-from django.contrib.auth.models import Group
-from django.db.models.signals import post_save, post_delete, pre_delete, pre_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
 from .models import *
-import shutil
 
 
 # User

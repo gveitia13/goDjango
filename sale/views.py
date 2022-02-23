@@ -25,21 +25,24 @@ def actualizar_ventas(request):
                     # asd = asd[0] if type(asd) == list else asd
                     asd = asd if type(asd) == list else [asd]
                     for dic in asd:
-                        for v in dic.values():
-                            if type(v) == dict:
-                                if v.get('name') is not None:
-                                    try:
-                                        sale = Sale()
-                                        sale.name = v['name']
-                                        sale.price = v['price']
-                                        sale.cost = v['cost']
-                                        sale.point_of_sale = v['point_of_sale']
-                                        sale.hash = v['hash']
-                                        if v.get('date_creation') is not None:
-                                            sale.date_creation = v['date_creation']
-                                        sale.save()
-                                    except:
-                                        pass
+                        # for v in dic.values():
+                        # if type(v) == dict:
+                        #     if v.get('name') is not None:
+                        try:
+                            sale = Sale()
+                            sale.name = dic['name']
+                            sale.price = dic['price']
+                            sale.cost = dic['cost']
+                            sale.point_of_sale = dic['point_of_sale']
+                            sale.hash = dic['hash']
+                            sale.save()
+                            timestamp = datetime.fromtimestamp(int(dic['date_creation'])/1000)
+                            sale.date_creation = timestamp.strftime('%Y-%m-%d %H:%M:%S')
+                            # if v.get('date_creation') is not None:
+                            #     sale.date_creation = v['date_creation']
+                            sale.save()
+                        except:
+                            pass
                     js.close()
                     os.remove(filename)
     return redirect('/admin/sale/sale')
