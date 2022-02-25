@@ -28,7 +28,7 @@ def delete_hash(sender, instance, using, **kwargs):
     try:
         user = instance
         shutil.rmtree(os.path.join(os.getcwd(), 'business/' + str(user.name_hash)))
-        shutil.rmtree(os.path.join(os.getcwd(), 'media/pdf/' + user.username))
+        shutil.rmtree(os.path.join(os.getcwd(), 'media/pdf/' + str(user.username)))
     except:
         pass
 

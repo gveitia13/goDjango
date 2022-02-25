@@ -1,6 +1,6 @@
 import glob
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import django_excel as excel
 from django.db import transaction
@@ -36,7 +36,7 @@ def actualizar_ventas(request):
                             sale.point_of_sale = dic['point_of_sale']
                             sale.hash = dic['hash']
                             sale.save()
-                            timestamp = datetime.fromtimestamp(int(dic['date_creation'])/1000)
+                            timestamp = datetime.fromtimestamp(int(dic['date_creation']) / 1000)
                             sale.date_creation = timestamp.strftime('%Y-%m-%d %H:%M:%S')
                             # if v.get('date_creation') is not None:
                             #     sale.date_creation = v['date_creation']
@@ -82,7 +82,14 @@ def exportar_ventas(request):
     if '_filter' in request.POST:
         inicial = request.POST['inicial']
         final = request.POST['final']
-        ventas = Sale.objects.filter(date_creation__range=[inicial, final], user=request.user)
+        print(inicial)
+        asd = datetime.strptime(inicial, '%Y-%m-%d')
+        print(asd)
+        asd = asd - timedelta(days=1)
+        asd = asd.strftime('%Y-%m-%d')
+        print(asd)
+        ventas = Sale.objects.filter(date_creation__range=[asd, final], user=request.user)
+        # ventas = Sale.objects.filter(date_creation)
         return render(request, 'admin/lista.html', {
             'ventas': ventas,
             'inicial': inicial,

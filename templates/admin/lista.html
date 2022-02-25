@@ -47,7 +47,7 @@
     <script src="/static/admin/js/jquery.init.js"></script>
     <script src="/static/admin/js/core.js"></script>
     <script src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
-{#    <script src="/static/admin/js/actions.js"></script>#}
+    {#    <script src="/static/admin/js/actions.js"></script>#}
     <script src="/static/admin/js/urlify.js"></script>
     <script src="/static/admin/js/prepopulate.js"></script>
     <script src="/static/admin/js/vendor/xregexp/xregexp.js"></script>
@@ -208,15 +208,16 @@
                                 <input class="form-control" type="date" name="final" value="{{ final }}" required>
                             </label>
                             <div style="margin-top: 3px" class="submit-row">
-                                <input class="btn btn-success" type="submit" name="_excel" value="Exportar a excel">
+                                {#                                <input class="btn btn-success" type="submit" name="_excel" value="Exportar a excel">#}
                                 <input class="btn btn-success" type="submit" name="_filter" value="Filtrar por rango">
                             </div>
                         </form>
 
                         <form action="/sale/sale/sale/" method="post">
                             {% csrf_token %}
-                            <div style="margin-left: 3px" class="submit-row">
-                                <input type="submit" class="btn btn-success" name="_reset" value="Mostrar todos">
+                            <div style="margin-left: 11px" class="submit-row">
+                                <input type="submit" class="btn btn-outline-success" name="_reset"
+                                       value="Mostrar todos">
                             </div>
                         </form>
 
@@ -240,45 +241,33 @@
 
                                                         <hr/>
 
-
                                                         <div class="card">
                                                             <div class="card-body table-responsive p-0" id="abdel">
                                                                 <table id="result_list" class="table table-striped">
                                                                     <thead>
                                                                     <tr>
-
                                                                         <th class="djn-checkbox-select-all" tabindex="0"
                                                                             rowspan="1" colspan="1">
                                                                             <div class="text">
-
                                                                                 <span><input type="checkbox"
                                                                                              id="action-toggle"></span>
-
-
                                                                             </div>
                                                                         </th>
 
                                                                         <th class="sorting" tabindex="0" rowspan="1"
                                                                             colspan="1">
                                                                             <div class="text">
-
                                                                                 <a href="?o=1.5">Nombre</a>
-
-
                                                                             </div>
                                                                         </th>
 
                                                                         <th class="sorting" tabindex="0" rowspan="1"
                                                                             colspan="1">
                                                                             <div class="text">
-
-                                                                                <a href="?o=2.5">Punto de venta</a>
-
-
+                                                                                <a href="?o=4.5">Costo</a>
                                                                             </div>
                                                                         </th>
-
-                                                                        <th class="sorting" tabindex="0" rowspan="1"
+                                                                                                                                                <th class="sorting" tabindex="0" rowspan="1"
                                                                             colspan="1">
                                                                             <div class="text">
 
@@ -287,33 +276,30 @@
 
                                                                             </div>
                                                                         </th>
+                                                                        <th class="sorting" tabindex="0" rowspan="1"
+                                                                            colspan="1">
+                                                                            <div class="text">
+                                                                                <a href="?o=3.5">Precio</a>
+                                                                            </div>
+                                                                        </th>
 
                                                                         <th class="sorting" tabindex="0" rowspan="1"
                                                                             colspan="1">
                                                                             <div class="text">
-
-                                                                                <a href="?o=4.5">Costo</a>
-
-
+                                                                                <a href="?o=2.5">Punto de venta</a>
                                                                             </div>
                                                                         </th>
 
                                                                         <th class="sorting_asc" tabindex="0" rowspan="1"
                                                                             colspan="1">
                                                                             <div class="text">
-
                                                                                 <a href="?o=-5">Fecha de creación</a>
-
-
                                                                                 <a href="?o=">
                                                                                     <div style="margin-top: .2em;"
                                                                                          class="fa fa-times float-right"></div>
                                                                                 </a>
-
                                                                                 <i style="margin-top: .2em;"
                                                                                    class="fa fa-sort-alpha-down"> </i>
-
-
                                                                             </div>
                                                                         </th>
 
@@ -329,11 +315,11 @@
                                                                                         value="1" class="action-select">
                                                                                 </td>
                                                                                 <th class="field-name"><a
-                                                                                        href="/admin/sale/sale/{{ item.pk }}/change/">a
-                                                                                    ver</a></th>
-                                                                                <td class="field-point_of_sale">{{ item.point_of_sale }}</td>
-                                                                                <td class="field-price">{{ item.price }}</td>
+                                                                                        href="/admin/sale/sale/{{ item.pk }}/change/">
+                                                                                    {{ item.name }}</a></th>
                                                                                 <td class="field-cost">{{ item.cost }}</td>
+                                                                                <td class="field-price">{{ item.price }}</td>
+                                                                                <td class="field-point_of_sale">{{ item.point_of_sale }}</td>
                                                                                 <td class="field-date_creation nowrap">
                                                                                     {{ item.date_creation }}
                                                                                 </td>
@@ -346,12 +332,11 @@
                                                                                         value="6" class="action-select">
                                                                                 </td>
                                                                                 <th class="field-name"><a
-                                                                                        href="/admin/sale/sale/{{ item.pk }}/change/">a
-                                                                                    ver
-                                                                                    tu hola</a></th>
-                                                                                <td class="field-point_of_sale">{{ item.point_of_sale }}</td>
-                                                                                <td class="field-price">{{ item.price }}</td>
+                                                                                        href="/admin/sale/sale/{{ item.pk }}/change/">
+                                                                                    {{ item.name }}</a></th>
                                                                                 <td class="field-cost">{{ item.cost }}</td>
+                                                                                <td class="field-price">{{ item.price }}</td>
+                                                                                <td class="field-point_of_sale">{{ item.point_of_sale }}</td>
                                                                                 <td class="field-date_creation nowrap">
                                                                                     {{ item.date_creation }}
                                                                                 </td>

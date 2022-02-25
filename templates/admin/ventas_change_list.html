@@ -1,6 +1,7 @@
-{% extends "admin/change_list.html" %} {% load i18n %}
+{% extends "admin/change_list.html" %}
+{% load admin_list %} {% load i18n %}
 {% block content %}
-    <form style="margin-bottom: 5px; margin-left: 10px" method="post" action="{% url 'sale:exportar' %}">
+    {% comment %}<form style="margin-bottom: 5px; margin-left: 10px" method="post" action="{% url 'sale:exportar' %}">
         {% csrf_token %}
         <label>
             <input class="form-control" type="date" name="inicial" value="Fecha inicial" required>
@@ -9,22 +10,28 @@
             <input class="form-control" type="date" name="final" value="Fecha final" required>
         </label>
         <div style="margin-top: 3px" class="submit-row">
-            <input class="btn btn-success" type="submit" name="_excel" value="Exportar a excel">
+            {#            <input class="btn btn-success" type="submit" name="_excel" value="Exportar a excel">#}
             <input class="btn btn-success" type="submit" name="_filter" value="Filtrar por rango">
         </div>
-    </form>
+    </form>{% endcomment %}
 
-    <form action="{% url 'sale:refrescar' %}" method="post">
+    {% comment %}<form action="{% url 'sale:refrescar' %}" method="post">
         {% csrf_token %}
-        <div style="margin-left: 3px" class="submit-row">
-            <input type="submit" class="btn btn-success" name="_reset" value="Mostrar todos">
+        <div style="margin-left: 11px" class="submit-row">
+            <input type="submit" class="btn btn-outline-success" name="_reset" value="Mostrar todos">
         </div>
-    </form>
+    </form>{% endcomment %}
+    {% block search %}
+
+    {% endblock %}
+    <div class="card-tools form-inline mb-md-5 mt-md-n3 ml-2">
+        {% search_form cl %}
+    </div>
     {{ block.super }}
 
 {% endblock %}
 {% block object-tools-items %}
-{#    {{ block.super }}#}
+    {#    {{ block.super }}#}
 
     <a class="btn btn-outline-success" href="{% url 'sale:actualizar' %}">Actualizar tabla </a>
 
