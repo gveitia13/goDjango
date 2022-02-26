@@ -16,7 +16,7 @@ class SaleInline(admin.StackedInline):
 class SaleAdmin(admin.ModelAdmin):
     change_list_template = 'admin/ventas_change_list.html'
     list_display = ('name', 'cost', 'price', 'point_of_sale', 'date_creation')
-    search_fields = ('point_of_sale',)
+    # search_fields = ('point_of_sale',)
     fieldsets = [
         ('Datos del producto', {
             'fields': ('name', 'price', 'cost')

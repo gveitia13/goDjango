@@ -23,4 +23,11 @@ if (window.location.pathname.includes('sale')) {
   } catch (e) {
     console.log(e)
   }
+  try {
+    // document.querySelector('#searchbar').classList.add('ml-md-4', 'ml-2')
+    // document.querySelector('#search_group').classList.add('ml-md-0', 'ml-2')
+    document.querySelector('#search_group').classList.add('d-none')
+  } catch (e) {
+    console.log(e)
+  }
 }
